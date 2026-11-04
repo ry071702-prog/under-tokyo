@@ -50,21 +50,24 @@ app.innerHTML = `
         <div class="fact">
           <div class="fact-k">最も深い駅</div>
           <div class="fact-v">${deepest.name} <b>-${deepest.depth.toFixed(1)}m</b>
-            <span class="badge measured">実測</span></div>
-          <div class="fact-note">日本一深い地下鉄駅</div>
+            <span class="badge published">公表値</span></div>
+          <div class="fact-note">日本一深い地下鉄駅 (42.3m は大門方面ホーム)</div>
         </div>
         <div class="fact">
           <div class="fact-k">線路が最も低い地点</div>
           <div class="fact-v">${lowestTrack.name}
-            <b>海抜 ${trackElevation(lowestTrack).toFixed(1)}m</b></div>
-          <div class="fact-note">低地＋深い掘削で海面下を走る</div>
+            <b>海抜 ${trackElevation(lowestTrack).toFixed(1)}m</b>
+            <span class="badge est">概算</span></div>
+          <div class="fact-note">深さも地表標高も概算の駅なので、海面下かどうかは断定できない</div>
         </div>
       </div>
 
-      <p class="disclaimer">
-        ⚠️ 深さ・標高は<b>六本木のみ実測値</b>、他は概算です。
-        地形のトレンド（台地・谷・低地）は実地形に寄せていますが、数値は今後精緻化します。
-      </p>
+      <ul class="disclaimer">
+        <li>⚠️ ホーム深さが<b>公表値なのは4駅 (六本木・東中野・新宿・中井)</b> だけで、残り34駅は概算です</li>
+        <li><b>地表標高は全38駅が概算</b>なので、断面に出る海抜の値も概算まじりになります</li>
+        <li>地形のトレンド (台地・谷・低地) は実地形に寄せていますが、数値は今後精緻化します</li>
+        <li>出典と限界は README に書いています</li>
+      </ul>
     </aside>
   </main>
 `;

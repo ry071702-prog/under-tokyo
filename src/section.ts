@@ -1,5 +1,5 @@
-// 断面ビュー — 横軸=路線に沿った距離、縦軸=海抜(m)。
-// 地表ラインと線路ラインを重ねて「地面の下をどう潜っているか」を見せる。
+// 断面ビュー — 横軸=路線に沿った距離、縦軸=海抜(m)
+// 地表ラインと線路ラインを重ねて「地面の下をどう潜っているか」を見せる
 
 import { type Station, trackElevation } from "./data/oedo";
 
@@ -27,7 +27,7 @@ function cumulativeDistance(stations: Station[]): number[] {
   return out;
 }
 
-/** 深さ(m)を色に。浅い=シアン寄り → 深い=紫。 */
+/** 深さ(m)を色に  浅い=シアン寄り → 深い=紫   */
 export function depthColor(depth: number, maxDepth: number): string {
   const t = Math.min(1, Math.max(0, depth / maxDepth));
   const hue = 195 + t * 90; // 195(cyan) → 285(violet)
@@ -128,14 +128,14 @@ export class SectionView {
   private showTooltip(i: number, px: number, py: number) {
     const s = this.stations[i];
     const elev = trackElevation(s);
-    const tag = s.measured
-      ? `<span class="tt-measured">実測</span>`
+    const tag = s.published
+      ? `<span class="tt-published">公表値</span>`
       : `<span class="tt-est">概算</span>`;
     this.tooltip.innerHTML = `
       <div class="tt-name">${s.name} <span class="tt-id">${s.id}</span></div>
       <div class="tt-row">深さ <b>${s.depth.toFixed(1)} m</b> ${tag}</div>
-      <div class="tt-row">地表標高 約 ${s.ground} m</div>
-      <div class="tt-row">線路の海抜 約 ${elev.toFixed(1)} m</div>`;
+      <div class="tt-row">地表標高 約 ${s.ground} m <span class="tt-est">概算</span></div>
+      <div class="tt-row">線路の海抜 約 ${elev.toFixed(1)} m <span class="tt-est">概算</span></div>`;
     const w = this.geom.w;
     const left = px > w * 0.6 ? px - 180 : px + 16;
     this.tooltip.style.left = `${left}px`;
@@ -166,7 +166,7 @@ export class SectionView {
     const tracks = this.stations.map((s) => trackElevation(s));
     let eMax = Math.max(...grounds) + 6;
     let eMin = Math.min(...tracks) - 6;
-    // 誇張: 縦を引き伸ばす（範囲を狭めて拡大表示）。OFF なら素直なレンジ。
+    // 誇張: 縦を引き伸ばす（範囲を狭めて拡大表示）  OFF なら素直なレンジ
     if (!this.exaggerate) {
       const span = eMax - eMin;
       const mid = (eMax + eMin) / 2;
@@ -314,7 +314,9 @@ export class SectionView {
       const yt = yAt(trackElevation(s));
       ctx.fillStyle = "#fff";
       ctx.font = "bold 12px ui-sans-serif, system-ui";
-      const label = `-${s.depth.toFixed(1)}m`;
+      const label = s.published
+        ? `-${s.depth.toFixed(1)}m`
+        : `-${s.depth.toFixed(1)}m (概算)`;
       const tw = ctx.measureText(label).width;
       ctx.fillText(label, Math.min(x + 8, padL + plotW - tw), yt + 4);
     }

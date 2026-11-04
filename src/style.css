@@ -158,14 +158,14 @@ body {
   color: #cbd5e1;
   line-height: 1.5;
 }
-.tt-measured,
+.tt-published,
 .tt-est {
   font-size: 10px;
   padding: 1px 5px;
   border-radius: 5px;
   margin-left: 4px;
 }
-.tt-measured {
+.tt-published {
   background: rgba(52, 211, 153, 0.18);
   color: #6ee7b7;
 }
@@ -278,20 +278,27 @@ body {
   margin-left: 4px;
   vertical-align: middle;
 }
-.badge.measured {
+.badge.published {
   background: rgba(52, 211, 153, 0.18);
   color: #6ee7b7;
+}
+.badge.est {
+  background: rgba(148, 163, 184, 0.18);
+  color: #cbd5e1;
 }
 
 .disclaimer {
   font-size: 11px;
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--muted);
   background: var(--panel-2);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: 10px 12px;
+  padding: 10px 12px 10px 26px;
   margin: 0;
+}
+.disclaimer li + li {
+  margin-top: 6px;
 }
 .disclaimer b {
   color: #cbd5e1;
